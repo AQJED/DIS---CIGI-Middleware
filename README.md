@@ -40,7 +40,7 @@ The middleware is developed in **C++** using the following libraries:
   - **AECHLON Image Generator (IG)** – Receives CIGI packets.
 
 - **Software:**
-  - **C++ Application (Middleware)** – No additional software tools or frameworks are used.
+  - **C++ languge only as the Middleware** – No software tools or frameworks are used.
 
 ## Key Features
 - **Real-time Data Processing**: Ensures smooth conversion of simulation data with minimal latency.
