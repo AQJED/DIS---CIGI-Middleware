@@ -49,17 +49,18 @@ The middleware is developed in **C++** using the following libraries:
 - **Network Communication**: Sends CIGI packets to the **IG** via **Boost.Asio**.
 
 ## Data Flow Diagram
-CGF Computer (DIS Packets)
-↓
-PCAPPLUSPLUS (Packet Capture)
-↓
-Shared Memory (Boost)
-↓
-Middleware (DIS to CIGI Conversion)
-↓
-Boost.Asio (CIGI Packet Transmission)
-↓
-AECHLON IG (CIGI Packets Rendere
+
+CGF Computer (DIS Packets)  
+↓  
+PCAPPLUSPLUS (Packet Capture)  
+↓  
+Shared Memory (Boost)  
+↓  
+Middleware (DIS to CIGI Conversion)  
+↓  
+Boost.Asio (CIGI Packet Transmission)  
+↓  
+AECHLON IG (CIGI Packets Rendered)  
 
 ## Conclusion
 This middleware **bridges the gap between CGF and IG** by efficiently capturing, processing, and converting **DIS** packets into **CIGI** format. The solution is designed for **real-time simulation environments**, ensuring **accurate entity representation** on the AECHLON IG.
