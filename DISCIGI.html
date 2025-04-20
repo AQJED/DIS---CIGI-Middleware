@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIS to CIGI Middleware Project</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-p1TfIh6V+7Wn/dF1WqKz7AGGgKf6EM3mYb+2L1G9OOV3mWc8H5KQFvcN4l+6LJ1qv1pU5jv7uPNq9vT+XQvSBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* Base styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100%; font-family: 'Poppins', sans-serif; color: #e0e0e0; background-color: #0f0f0f; line-height: 1.6; }
+
+    /* Fullscreen Header */
+    header { position: relative; width: 100%; height: 100vh; background: url('background.jpg') no-repeat center center/cover; display: flex; align-items: center; justify-content: center; }
+    header::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,15,15,0.6); }
+    .header-content { position: relative; z-index: 1; padding: 2rem; width: 80%; max-width: 1000px; text-align: center; }
+    .header-content h1 { font-size: 3rem; font-weight: 600; color: #ffffff; }
+    .header-content p { font-size: 1.25rem; color: #cccccc; margin-top: 0.5rem; }
+
+    /* Main content container */
+    main { padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; }
+    h2 { font-size: 2rem; margin-bottom: 1rem; font-weight: 600; color: #f0f0f0; }
+    p { margin-bottom: 1rem; font-size: 1rem; color: #d0d0d0; }
+    ul { margin-bottom: 1.5rem; padding-left: 1.25rem; }
+    ul li { margin-bottom: 0.5rem; }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+    th, td { padding: 0.75rem 1rem; border: 1px solid #2c2c2c; }
+    th { background-color: #1a1a1a; color: #ffffff; text-align: left; }
+    td { background-color: #141414; color: #cccccc; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-content h1 { font-size: 2.5rem; }
+      .header-content { width: 90%; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="header-content">
+      <h1>DIS to CIGI Middleware Project</h1>
+      <p>Convert DIS Protocol Packets into CIGI 3.3 for Real‑Time Simulation</p>
+      <p>This project is a middleware application that facilitates communication between a Computer‑Generated Forces (CGF) system and an Image Generator (IG) by converting DIS protocol packets into CIGI protocol packets.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This middleware captures DIS protocol packets from a CGF computer, maps key fields to CIGI Entity Control packets using Open DIS and CIGI CCL, and transmits them to the AECHLON IG via Boost.Asio.</p>
+    </section>
+
+    <section id="system-architecture">
+      <h2>System Architecture</h2>
+      <ul>
+        <li><strong>Capture DIS Packets</strong>
+          <ul>
+            <li>The middleware captures DIS protocol packets from the CGF computer using PCAPPlusPlus.</li>
+            <li>The data is extracted from the network using a Cisco switch.</li>
+          </ul>
+        </li>
+        <li><strong>Store Data in Shared Memory</strong>
+          <ul>
+            <li>The captured DIS packets are written into a shared memory buffer.</li>
+            <li>Each packet is marked with a flag to indicate whether it is ready to be processed.</li>
+          </ul>
+        </li>
+        <li><strong>Read Data from Shared Memory</strong>
+          <ul>
+            <li>The middleware continuously checks for available packets in shared memory.</li>
+            <li>Once a packet is ready, it is retrieved for processing.</li>
+          </ul>
+        </li>
+        <li><strong>Convert DIS to CIGI</strong>
+          <ul>
+            <li>The DIS packet is parsed using the Open DIS library.</li>
+            <li>Key parameters such as Entity ID, Position, Orientation, and Appearance are mapped to CIGI Entity Control packets using the CIGI CCL library.</li>
+          </ul>
+        </li>
+        <li><strong>Send CIGI Packets to IG</strong>
+          <ul>
+            <li>The converted CIGI packets are sent to the AECHLON Image Generator (IG) using Boost.Asio for TCP/UDP communication.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="libraries-used">
+      <h2>Libraries Used</h2>
+      <ul>
+        <li>PCAPPlusPlus – Capturing network packets from the CGF computer</li>
+        <li>Open DIS – Parsing and interpreting DIS protocol packets</li>
+        <li>CIGI CCL – Constructing and managing CIGI protocol packets</li>
+        <li>Boost.Interprocess – Shared memory management</li>
+        <li>Boost.Asio – Network communication (TCP/UDP)</li>
+      </ul>
+    </section>
+
+    <section id="requirements">
+      <h2>Hardware and Software Requirements</h2>
+      <ul>
+        <li><strong>Hardware:</strong>
+          <ul>
+            <li>CGF Computer – Generates DIS packets</li>
+            <li>Cisco Switch – Connects the CGF system to the middleware</li>
+            <li>AECHLON Image Generator (IG) – Receives CIGI packets</li>
+          </ul>
+        </li>
+        <li><strong>Software:</strong>
+          <ul>
+            <li>C++ application only as the middleware – No additional frameworks required</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section id="key-features">
+      <h2>Key Features</h2>
+      <ul>
+        <li>Real-time Data Processing – Ensures smooth conversion of simulation data with minimal latency</li>
+        <li>Efficient Shared Memory Handling – Uses Boost.Interprocess to manage DIS packet buffering</li>
+        <li>Protocol Mapping – Converts relevant DIS EntityStatePDU parameters into CIGI Entity Control packets</li>
+        <li>Network Communication – Sends CIGI packets to the IG via Boost.Asio</li>
+      </ul>
+    </section>
+
+    <section id="data-flow">
+      <h2>Data Flow Diagram</h2>
+      <ul>
+        <li>CGF Computer (DIS Packets)</li>
+        <li>↓ PCAPPlusPlus (Packet Capture)</li>
+        <li>↓ Shared Memory (Boost)</li>
+        <li>↓ Middleware (DIS to CIGI Conversion)</li>
+        <li>↓ Boost.Asio (CIGI Packet Transmission)</li>
+        <li>↓ AECHLON IG (CIGI Packets Rendered)</li>
+      </ul>
+    </section>
+
+    <section id="conclusion">
+      <h2>Conclusion</h2>
+      <p>This middleware bridges the gap between CGF and IG by efficiently capturing, processing, and converting DIS packets into CIGI format. The solution is designed for real-time simulation environments, ensuring accurate entity representation on the AECHLON IG.</p>
+    </section>
+
+    <section id="author">
+      <h2>Author</h2>
+      <p>Adeeb Alqahtani</p>
+      <p>
+        <a href="https://theadeeb.com">theadeeb.com</a> |
+        <a href="https://www.linkedin.com/in/adalqahtani">LinkedIn</a>
+      </p>
+    </section>
+  </main>
+
+</body>
+</html>
